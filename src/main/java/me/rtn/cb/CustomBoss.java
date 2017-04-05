@@ -16,6 +16,8 @@ import java.util.stream.Stream;
  */
 public class CustomBoss extends JavaPlugin implements Listener {
 
+    BossHandler handler = new BossHandler();
+
     private static CustomBoss instance;
 
     public static CustomBoss getInstance() {
@@ -37,6 +39,7 @@ public class CustomBoss extends JavaPlugin implements Listener {
         ItemMeta eggMeta = spawnEgg.getItemMeta();
         eggMeta.setDisplayName(ChatColor.RED + "HAVE FUN!");
         spawnEgg.setItemMeta(eggMeta);
+        handler.addGlow(spawnEgg);
 
         Stream.of(
                 new BossHandler()

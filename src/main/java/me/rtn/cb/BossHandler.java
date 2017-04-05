@@ -1,6 +1,8 @@
 package me.rtn.cb;
 
 import net.minecraft.server.v1_11_R1.EnumItemSlot;
+import net.minecraft.server.v1_11_R1.NBTTagCompound;
+import net.minecraft.server.v1_11_R1.NBTTagList;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_11_R1.entity.CraftLivingEntity;
@@ -14,6 +16,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.EntitySpawnEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.util.Vector;
@@ -104,6 +107,28 @@ public class BossHandler implements Listener {
             ((CraftLivingEntity)event.getEntity()).getHandle().setEquipment(EnumItemSlot.LEGS, nmsLegs);
             ((CraftLivingEntity) event.getEntity()).getHandle().setEquipment(EnumItemSlot.FEET, nmsBoots);
 
+            CustomBoss.getInstance().getServer().getWorld(event.getEntity().getName()).strikeLightning(event.getEntity().getLocation());
         }
+    }
+
+    public ItemStack addGlow(ItemStack item) {
+        net.minecraft.server.v1_11_R1.ItemStack nmsStack = CraftItemStack.asNMSCopy(item);
+        NBTTagCompound tag = null;
+        if (!nmsStack.hasTag()) {
+            tag = new NBTTagCompound();
+            nmsStack.setTag(tag);
+        }
+        if (tag == null) {
+            tag = nmsStack.getTag();
+            NBTTagList list = new NBTTagList();
+            tag.set("ench", list );
+            nmsStack.setTag(tag);
+        }
+        return CraftItemStack.asCraftMirror(nmsStack);
+    }
+
+    @EventHandler
+    public void onPlayerJoin(PlayerJoinEvent event){
+        event.getPlayer().getInventory().addItem(CustomBoss.getInstance().getSpawnEgg());
     }
 }
