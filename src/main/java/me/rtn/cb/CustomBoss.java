@@ -1,6 +1,12 @@
 package me.rtn.cb;
 
+import me.rtn.cb.packets.NMSUtil;
+import net.minecraft.server.v1_11_R1.EntityZombie;
+import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.event.Listener;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
@@ -10,14 +16,25 @@ public class CustomBoss extends JavaPlugin implements Listener {
 
     private static CustomBoss instance;
 
-
     public static CustomBoss getInstance() {
         return instance;
     }
 
+    public ItemStack spawnEgg;
+
     @Override
     public void onEnable(){
+
+        NMSUtil util = new NMSUtil();
+
+        util.register("OP FUCKER", "54", EntityZombie.class, CustomBoss.class);
+
         instance = this;
+
+        spawnEgg = new ItemStack(Material.MOB_SPAWNER, 1);
+        ItemMeta eggMeta = spawnEgg.getItemMeta();
+        eggMeta.setDisplayName(ChatColor.RED + "HAVE FUN!");
+        spawnEgg.setItemMeta(eggMeta);
     }
 
     @Override
@@ -25,4 +42,7 @@ public class CustomBoss extends JavaPlugin implements Listener {
 
     }
 
+    public ItemStack getSpawnEgg() {
+        return spawnEgg;
+    }
 }

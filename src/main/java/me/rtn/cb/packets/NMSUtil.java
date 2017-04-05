@@ -1,6 +1,8 @@
 package me.rtn.cb.packets;
 
+import me.rtn.cb.CustomBoss;
 import net.minecraft.server.v1_11_R1.EntityInsentient;
+import net.minecraft.server.v1_11_R1.EntityTypes;
 import org.bukkit.entity.EntityType;
 
 import java.lang.reflect.Field;
@@ -14,11 +16,11 @@ import java.util.Map;
  */
 public class NMSUtil {
 
-    public void register(String name, int id, Class<? extends EntityInsentient> nmsClass, Class<? extends EntityInsentient> customClass){
+    public void register(String name, String id, Class<? extends EntityInsentient> nmsClass, Class<CustomBoss> customClass){
         try {
 
             List<Map<?, ?>> data = new ArrayList<Map<?, ?>>();
-            for(Field field : EntityType.class.getDeclaredFields()){
+            for(Field field : EntityTypes.class.getDeclaredFields()){
 
                 if(field.getType().getSimpleName() == Map.class.getSimpleName()){
                     field.setAccessible(true);
