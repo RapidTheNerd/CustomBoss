@@ -10,6 +10,7 @@ public class CustomBoss extends JavaPlugin implements Listener {
 
     private static CustomBoss instance;
 
+
     public static CustomBoss getInstance() {
         return instance;
     }
