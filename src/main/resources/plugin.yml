@@ -1,0 +1,6 @@
+name: CustomBoss
+version: ${project.version}
+main: me.rtn.cb.CustomBoss
+load: STARTUP
+authors: [RapidTheNerd]
+description: A random OP as fuck custom boss
