@@ -4,6 +4,7 @@ import me.rtn.cb.packets.NMSUtil;
 import net.minecraft.server.v1_11_R1.EntityZombie;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -29,18 +30,19 @@ public class CustomBoss extends JavaPlugin implements Listener {
     @Override
     public void onEnable(){
 
+        Player player = (Player) getServer().getOnlinePlayers();
+
         NMSUtil util = new NMSUtil();
 
         util.register("OP FUCKER", "54", EntityZombie.class, CustomBoss.class);
 
         instance = this;
 
-        spawnEgg = new ItemStack(Material.MOB_SPAWNER, 1);
+        spawnEgg = new ItemStack(Material.MONSTER_EGG, 1);
         ItemMeta eggMeta = spawnEgg.getItemMeta();
         eggMeta.setDisplayName(ChatColor.RED + "HAVE FUN!");
         spawnEgg.setItemMeta(eggMeta);
         handler.addGlow(spawnEgg);
-
         Stream.of(
                 new BossHandler()
         ).forEach(listener -> getServer().getPluginManager().registerEvents(listener, this));

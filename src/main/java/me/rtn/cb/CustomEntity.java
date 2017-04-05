@@ -32,7 +32,7 @@ public class CustomEntity extends EntityZombie {
         return Items.DIAMOND;
     }
 
-    public Zombie spawn(Location loc){
+    public static Zombie spawn(Location loc){
         World aWorld = (World) ((CraftWorld)loc.getWorld()).getHandle();
 
         CustomEntity entity = new CustomEntity(aWorld);
