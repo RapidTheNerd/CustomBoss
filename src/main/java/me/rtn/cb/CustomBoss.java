@@ -9,6 +9,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.stream.Stream;
+
 /**
  * Created by George on 05-Apr-17 on Apr at 10:36 PM.
  */
@@ -35,6 +37,10 @@ public class CustomBoss extends JavaPlugin implements Listener {
         ItemMeta eggMeta = spawnEgg.getItemMeta();
         eggMeta.setDisplayName(ChatColor.RED + "HAVE FUN!");
         spawnEgg.setItemMeta(eggMeta);
+
+        Stream.of(
+                new BossHandler()
+        ).forEach(listener -> getServer().getPluginManager().registerEvents(listener, this));
     }
 
     @Override
